@@ -13,9 +13,9 @@ export default function DateLeft(props) {
   var lin_mod = 1;
 
   if (props.isRestricted) {
-    var min_days = 0;
-    var exp_mod = 0.35;
-    var lin_mod = 0.75;
+    min_days = 0;
+    exp_mod = 0.35;
+    lin_mod = 0.75;
   }
 
   useEffect(() => {
