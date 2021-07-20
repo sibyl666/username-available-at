@@ -1,12 +1,22 @@
 import { useState } from "react";
 import DateLeft from "./components/DateLeft";
 
+function checkNumber(string) {
+  return /^\d+$/.test(string);
+}
+
 function App() {
   const [playCount, setPlayCount] = useState(0);
+  const [inactiveDays, setInactiveDays] = useState(0);
   const [isRestricted, setIsRestricted] = useState(false);
 
   const handleChange = (event) => {
+    if (!checkNumber(event.target.value)) return;
     setPlayCount(event.target.value);
+  }
+  const handleInactiveDays = (event) => {
+    if (!checkNumber(event.target.value)) return;
+    setInactiveDays(event.target.value);
   }
   const handleIsRestricted = () => {
     setIsRestricted(!isRestricted)
@@ -15,7 +25,8 @@ function App() {
   return (
     <div className="App w-96 h-96 p-10 bg-black-800 rounded-md flex flex-col">
       <div id="inputs">
-        <input className="p-2 w-full rounded-md bg-black-700" onChange={handleChange} />
+        <input className="p-2 w-full rounded-md bg-black-700" placeholder="Play Count" onChange={handleChange} />
+        <input className="p-2 my-2 w-full rounded-md bg-black-700" placeholder="Inactive Days" onChange={handleInactiveDays} />
 
         <div id="checkboxes" className="flex items-center mt-2">
           <input 
@@ -26,7 +37,7 @@ function App() {
         </div>
       </div>
 
-      <DateLeft playCount={playCount} isRestricted={isRestricted} />
+      <DateLeft playCount={playCount} isRestricted={isRestricted} inactiveDays={inactiveDays} />
     </div>
   );
 }

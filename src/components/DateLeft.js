@@ -19,34 +19,35 @@ export default function DateLeft(props) {
       lin_mod = 0.75;
     }
 
-    var playCount = parseInt(props.playCount)
+    var playCount = parseInt(props.playCount);
 
     // days
     var totalDays = parseInt(
-      min_days + 
-      1580 * (1 - Math.exp(playCount * exp_mod * -1 / 5900)) +
-      (playCount * lin_mod * 8 / 5900)
+      min_days +
+        1580 * (1 - Math.exp((playCount * exp_mod * -1) / 5900)) +
+        (playCount * lin_mod * 8) / 5900
     );
-    setTotalDays(totalDays)
+
+    totalDays -= props.inactiveDays;
+    if (totalDays < 0) totalDays = 0;
+    setTotalDays(totalDays);
 
     var years = Math.floor(totalDays / 365);
     setYear(years);
 
     var months = Math.floor(
-      (totalDays - (years * 365)) /
-      (365 / 12) // months
+      (totalDays - years * 365) / (365 / 12) // months
     );
-    setMonth(months)
-    setTotalMonths(Math.floor(totalDays / (365 / 12)))
+    setMonth(months);
+    setTotalMonths(Math.floor(totalDays / (365 / 12)));
 
     var days = Math.floor(
       totalDays -
-      // year days/     // month days //////
-      ((years * 365) + (months * (365 / 12)))
+        // year days/     // month days //////
+        (years * 365 + months * (365 / 12))
     );
-    setDays(days)
-
-  }, [props])
+    setDays(days);
+  }, [props]);
 
   return (
     <div className="User mt-auto">
@@ -62,9 +63,11 @@ export default function DateLeft(props) {
       </div>
 
       <div id="available After">
-        <h1 className="text-blue-light font-medium" >Available after</h1>
-        <p>{year} year, {month} month, {days} days</p>
+        <h1 className="text-blue-light font-medium">Available after</h1>
+        <p>
+          {year} year, {month} month, {days} days
+        </p>
       </div>
     </div>
-  )
+  );
 }
