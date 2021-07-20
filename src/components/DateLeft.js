@@ -8,17 +8,17 @@ export default function DateLeft(props) {
   const [totalDays, setTotalDays] = useState(0);
   const [totalMonths, setTotalMonths] = useState(0);
 
-  var min_days = 180;
-  var exp_mod = 1;
-  var lin_mod = 1;
-
-  if (props.isRestricted) {
-    min_days = 0;
-    exp_mod = 0.35;
-    lin_mod = 0.75;
-  }
-
   useEffect(() => {
+    var min_days = 180;
+    var exp_mod = 1;
+    var lin_mod = 1;
+
+    if (props.isRestricted) {
+      min_days = 0;
+      exp_mod = 0.35;
+      lin_mod = 0.75;
+    }
+
     var playCount = parseInt(props.playCount)
 
     // days
